@@ -1,0 +1,51 @@
+﻿@*informs the view what type can be given to the view as a model*@
+@model IEnumerable<RestaurantRater.Models.Restaurant>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>List of Restaurants</h2>
+
+<p>
+    @Html.ActionLink("Rate a Restaurant", "Create")   @*Create = link ahref*@
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @*Display name of Name property*@
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rating)
+        </th>
+        <th>
+
+        </th>
+    </tr>
+    @*ADD A ROW FOR OUR MODEL -- model is a collection so need a row to display each item*@
+    @foreach (var item in Model) // Model fixed in Restaurant Controller -- passed into View()
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+            <td>
+                @*ROUTE VALUE*@
+                @Html.ActionLink("Change", "Edit", new { id = item.RestaurantId }) |
+                @Html.ActionLink("More Info", "Details", new { id = item.RestaurantId }) |
+                @Html.ActionLink("Remove", "Delete", new { id = item.RestaurantId }) |
+            </td>
+        </tr>
+    }
+</table>
