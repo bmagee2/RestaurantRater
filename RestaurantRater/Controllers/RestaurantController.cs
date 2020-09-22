@@ -109,5 +109,22 @@ namespace RestaurantRater.Controllers
             return View(restaurant);    // given back exactly what user gave (the restaurant model they're trying to update)
         }
 
+        // GET: Restaurant/Details/{id}
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);     // user entered a bad request    
+            }
+
+            // Restaurant object    calling dbcontext Restaurants table
+            Restaurant restaurant = _db.Restaurants.Find(id);
+            if (restaurant == null)
+            {
+                return HttpNotFound();  // couldn't find restaurant
+            }
+
+            return View(restaurant);    // return restaurant matching id
+        }
     }
 }
